@@ -75,6 +75,7 @@ public class AnagramController {
 	 * @return
 	 */
 	public Set<String> findAllPermutations(String word, Set<String> fileContentSet) {
+		System.out.println("Hello");
 		if (word == null) {
 			throw new NullPointerException();
 		}
