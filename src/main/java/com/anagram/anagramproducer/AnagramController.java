@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AnagramController {
 
 	@RequestMapping(value = "/{word}", method = RequestMethod.GET, produces = "application/json")
-	public Set<String> getAnagrams(@PathVariable String word) throws IOException {
+	public List<String> getAnagrams(@PathVariable String word) throws IOException {
 		List<String> anagrams = new ArrayList<String>();
 		// Reads the input file
 		Set<String> fileContentSet = readFile();
@@ -39,7 +39,7 @@ public class AnagramController {
 		
 		fileContentSet.clear();
 		
-		return permuteSet;
+		return anagrams;
 	}
 
 	/**
