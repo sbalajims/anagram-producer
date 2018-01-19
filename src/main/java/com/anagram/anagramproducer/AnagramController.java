@@ -26,15 +26,15 @@ public class AnagramController {
 		Set<String> fileContentSet = readFile();
 
 		// Generates all possible combinations of a given word
-		Set<String> permuteSet = findAllPermutations(word);
+		Set<String> permuteSet = findAllPermutations(word, fileContentSet);
 
 		// Checks if the dictionary collection contains a perumuted value
 		// Prints the value if it is available in the wordlist.txt
-		for (String permutedValue : permuteSet) {
+/*		for (String permutedValue : permuteSet) {
 			if (fileContentSet.contains(permutedValue)) {
 				anagrams.add(permutedValue);
 			}
-		}
+		}*/
 		
 		fileContentSet.clear();
 		
@@ -67,9 +67,10 @@ public class AnagramController {
 	 * Generates all the possible combinations of a given word
 	 * 
 	 * @param word
+	 * @param fileContentSet 
 	 * @return
 	 */
-	public Set<String> findAllPermutations(String word) {
+	public Set<String> findAllPermutations(String word, Set<String> fileContentSet) {
 		if (word == null) {
 			throw new NullPointerException();
 		}
@@ -78,12 +79,15 @@ public class AnagramController {
 		}
 
 		Set<String> permutations = new HashSet<String>();
-		for (String permutation : findAllPermutations(word.substring(1))) {
+		for (String permutation : findAllPermutations(word.substring(1), fileContentSet)) {
 			char ch = word.charAt(0);
 			for (int i = 0; i <= permutation.length(); i++) {
 				String prefix = permutation.substring(0, i);
 				String suffix = permutation.substring(i);
-				permutations.add(prefix + ch + suffix);
+				String shuffledWord = prefix + ch + suffix;
+				if(fileContentSet.contains(shuffledWord)) {
+					permutations.add(shuffledWord);
+				}			
 			}
 		}
 		return permutations;
