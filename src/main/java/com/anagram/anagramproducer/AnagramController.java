@@ -38,6 +38,8 @@ public class AnagramController {
 			}
 		}
 		
+		fileContentSet.clear();
+		
 		return anagrams;
 	}
 
