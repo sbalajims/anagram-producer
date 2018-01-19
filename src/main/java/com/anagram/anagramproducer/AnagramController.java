@@ -27,14 +27,14 @@ public class AnagramController {
 		Set<String> fileContentSet = readFile();
 
 		// Generates all possible combinations of a given word
-		Set<String> permuteSet = findAllPermutations(word, fileContentSet);
+		Set<String> permuteSet = findAllPermutations(word);
 
 		// Checks if the dictionary collection contains a perumuted value
 		// Prints the value if it is available in the wordlist.txt
 		for (String permutedValue : permuteSet) {
-			
+			if (fileContentSet.contains(permutedValue)) {
 				anagrams.add(permutedValue);
-			
+			}
 		}
 		
 		fileContentSet.clear();
@@ -71,7 +71,7 @@ public class AnagramController {
 	 * @param fileContentSet 
 	 * @return
 	 */
-	public Set<String> findAllPermutations(String word, Set<String> fileContentSet) {
+	public Set<String> findAllPermutations(String word) {
 		if (word == null) {
 			throw new NullPointerException();
 		}
@@ -80,7 +80,7 @@ public class AnagramController {
 		}
 
 		Set<String> permutations = new TreeSet<String>();
-		for (String permutation : findAllPermutations(word.substring(1), fileContentSet)) {
+		for (String permutation : findAllPermutations(word.substring(1))) {
 			char ch = word.charAt(0);
 			for (int i = 0; i <= permutation.length(); i++) {
 				String prefix = permutation.substring(0, i);
