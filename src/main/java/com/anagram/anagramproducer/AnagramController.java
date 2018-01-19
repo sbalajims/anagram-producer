@@ -5,14 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,6 +72,9 @@ public class AnagramController {
 	public Set<String> findAllPermutations(String word) {
 		if (word == null) {
 			throw new NullPointerException();
+		}
+		if (word.length() <= 1) {
+			return Stream.of(word).collect(Collectors.toSet());
 		}
 
 		Set<String> permutations = new HashSet<String>();
