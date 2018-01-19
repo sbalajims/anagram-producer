@@ -21,7 +21,7 @@ public class AnagramController {
 
 	@RequestMapping(value = "/{word}", method = RequestMethod.GET, produces = "application/json")
 	public Set<String> getAnagrams(@PathVariable String word) throws IOException {
-		List<String> anagrams = new ArrayList<String>();
+		//List<String> anagrams = new ArrayList<String>();
 		// Reads the input file
 		Set<String> fileContentSet = readFile();
 
@@ -37,6 +37,10 @@ public class AnagramController {
 		}*/
 		
 		fileContentSet.clear();
+		
+		for(String permutedValue : permuteSet) {
+			System.out.println(permutedValue);
+	}
 		
 		return permuteSet;
 	}
