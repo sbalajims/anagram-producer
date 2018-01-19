@@ -28,7 +28,7 @@ public class AnagramController {
 		Set<String> fileContentSet = readFile();
 
 		// Generates all possible combinations of a given word
-		List<String> permuteSet = findAllPermutations(word);
+		Set<String> permuteSet = findAllPermutations(word);
 
 		// Checks if the dictionary collection contains a perumuted value
 		// Prints the value if it is available in the wordlist.txt
@@ -71,15 +71,12 @@ public class AnagramController {
 	 * @param word
 	 * @return
 	 */
-	public List<String> findAllPermutations(String word) {
+	public Set<String> findAllPermutations(String word) {
 		if (word == null) {
 			throw new NullPointerException();
 		}
-		if (word.length() <= 1) {
-			return Arrays.asList(word);
-		}
 
-		List<String> permutations = new ArrayList<>();
+		Set<String> permutations = new HashSet<String>();
 		for (String permutation : findAllPermutations(word.substring(1))) {
 			char ch = word.charAt(0);
 			for (int i = 0; i <= permutation.length(); i++) {
