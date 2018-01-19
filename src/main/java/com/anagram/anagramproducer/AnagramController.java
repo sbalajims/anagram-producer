@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,7 +22,7 @@ public class AnagramController {
 
 	@RequestMapping(value = "/{word}", method = RequestMethod.GET, produces = "application/json")
 	public Set<String> getAnagrams(@PathVariable String word) throws IOException {
-		//List<String> anagrams = new ArrayList<String>();
+		List<String> anagrams = new ArrayList<String>();
 		// Reads the input file
 		Set<String> fileContentSet = readFile();
 
@@ -30,17 +31,13 @@ public class AnagramController {
 
 		// Checks if the dictionary collection contains a perumuted value
 		// Prints the value if it is available in the wordlist.txt
-/*		for (String permutedValue : permuteSet) {
-			if (fileContentSet.contains(permutedValue)) {
+		for (String permutedValue : permuteSet) {
+			
 				anagrams.add(permutedValue);
-			}
-		}*/
+			
+		}
 		
 		fileContentSet.clear();
-		
-		for(String permutedValue : permuteSet) {
-			System.out.println(permutedValue);
-	}
 		
 		return permuteSet;
 	}
@@ -75,7 +72,6 @@ public class AnagramController {
 	 * @return
 	 */
 	public Set<String> findAllPermutations(String word, Set<String> fileContentSet) {
-		System.out.println("Hello");
 		if (word == null) {
 			throw new NullPointerException();
 		}
@@ -83,16 +79,13 @@ public class AnagramController {
 			return Stream.of(word).collect(Collectors.toSet());
 		}
 
-		Set<String> permutations = new HashSet<String>();
+		Set<String> permutations = new TreeSet<String>();
 		for (String permutation : findAllPermutations(word.substring(1), fileContentSet)) {
 			char ch = word.charAt(0);
 			for (int i = 0; i <= permutation.length(); i++) {
 				String prefix = permutation.substring(0, i);
 				String suffix = permutation.substring(i);
-				String shuffledWord = prefix + ch + suffix;
-				if(fileContentSet.contains(shuffledWord)) {
-					permutations.add(shuffledWord);
-				}			
+				permutations.add(prefix + ch + suffix);		
 			}
 		}
 		return permutations;
